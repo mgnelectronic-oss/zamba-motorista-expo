@@ -1,0 +1,371 @@
+import { Platform, StyleSheet } from 'react-native';
+import { contentMaxWidth, normalize } from '@/lib/responsive';
+import type { ThemeColors } from '@/theme/types';
+
+/** Espaço vertical entre blocos principais (GPS → banner → card). */
+function sectionGap(screenWidth: number): number {
+  return normalize(8, screenWidth);
+}
+
+/** Espaço entre o banner promocional e o card principal (compacto, ~10–12pt em base 375). */
+function bannerToCardGap(screenWidth: number): number {
+  return normalize(11, screenWidth);
+}
+
+export function createDriverHomeStyles(c: ThemeColors, screenWidth: number) {
+  const n = (size: number) => normalize(size, screenWidth);
+  const padH = n(20);
+  const maxW = contentMaxWidth(screenWidth, padH);
+  const SECTION_GAP = sectionGap(screenWidth);
+  const BANNER_TO_CARD_GAP = bannerToCardGap(screenWidth);
+
+  return StyleSheet.create({
+    center: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: c.bg },
+    padH: { paddingHorizontal: n(24) },
+    safeMain: {
+      flex: 1,
+      backgroundColor: c.bg,
+    },
+    approvedRoot: {
+      flex: 1,
+      width: '100%',
+      paddingHorizontal: padH,
+      paddingTop: n(4),
+      alignItems: 'center',
+    },
+    gpsRowSlot: {
+      width: '100%',
+      maxWidth: maxW,
+      alignSelf: 'center',
+      paddingTop: n(8),
+      marginBottom: SECTION_GAP,
+      minHeight: n(50),
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      paddingRight: 0,
+    },
+    cardCenterWrap: {
+      flex: 1,
+      width: '100%',
+      justifyContent: 'flex-start',
+      marginTop: 0,
+      paddingTop: 0,
+      paddingBottom: SECTION_GAP,
+      minHeight: 0,
+    },
+    scrollFlex: {
+      flex: 1,
+    },
+    scrollContent: {
+      flexGrow: 1,
+      alignItems: 'center',
+      backgroundColor: c.bg,
+    },
+    loadingText: {
+      marginTop: n(12),
+      fontSize: n(14),
+      color: c.textSecondary,
+      fontWeight: '600',
+      lineHeight: n(20),
+    },
+    configTitle: {
+      marginTop: n(16),
+      fontSize: n(18),
+      fontWeight: '800',
+      color: c.text,
+      textAlign: 'center',
+      lineHeight: n(24),
+    },
+    configSub: {
+      marginTop: n(8),
+      fontSize: n(14),
+      color: c.textMuted,
+      textAlign: 'center',
+      lineHeight: n(20),
+    },
+    gpsPill: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: n(8),
+      backgroundColor: c.surfaceElevated,
+      paddingHorizontal: n(16),
+      paddingVertical: n(9),
+      borderRadius: n(100),
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: c.borderSubtle,
+      ...Platform.select({
+        ios: {
+          shadowColor: '#0F172A',
+          shadowOffset: { width: 0, height: n(4) },
+          shadowOpacity: 0.07,
+          shadowRadius: n(12),
+        },
+        android: { elevation: 4 },
+      }),
+    },
+    gpsDot: { width: n(8), height: n(8), borderRadius: n(4) },
+    gpsPillText: {
+      fontSize: n(10),
+      fontWeight: '800',
+      color: c.textSecondary,
+      letterSpacing: n(1.15),
+      textTransform: 'uppercase',
+      lineHeight: n(14),
+    },
+    gpsWarn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: n(12),
+      backgroundColor: c.warningBg,
+      borderRadius: n(18),
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: c.borderSubtle,
+      paddingVertical: n(14),
+      paddingHorizontal: n(16),
+      marginBottom: SECTION_GAP,
+      width: '100%',
+      maxWidth: maxW,
+      ...Platform.select({
+        ios: {
+          shadowColor: '#0F172A',
+          shadowOffset: { width: 0, height: n(2) },
+          shadowOpacity: 0.04,
+          shadowRadius: n(8),
+        },
+        android: { elevation: 2 },
+      }),
+    },
+    gpsWarnTitle: {
+      fontSize: n(13),
+      fontWeight: '800',
+      color: c.warning,
+      letterSpacing: -0.2,
+      lineHeight: n(18),
+    },
+    gpsWarnSub: {
+      fontSize: n(11),
+      color: c.textMuted,
+      marginTop: n(2),
+      lineHeight: n(15),
+      fontWeight: '500',
+    },
+    bannerRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: n(10),
+      borderWidth: 1,
+      borderRadius: n(16),
+      padding: n(12),
+      marginBottom: SECTION_GAP,
+      width: '100%',
+      maxWidth: maxW,
+    },
+    bannerIconWrap: {
+      padding: n(8),
+      borderRadius: n(12),
+    },
+    bannerTextCol: { flex: 1, minWidth: 0 },
+    bannerTitle: { fontSize: n(13), fontWeight: '800', lineHeight: n(18) },
+    bannerDesc: { fontSize: n(11), marginTop: n(2), opacity: 0.85, lineHeight: n(15) },
+    bannerBtn: {
+      paddingHorizontal: n(10),
+      paddingVertical: n(8),
+      borderRadius: n(10),
+      backgroundColor: c.surfaceElevated,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: c.border,
+    },
+    bannerBtnText: {
+      fontSize: n(9),
+      fontWeight: '800',
+      letterSpacing: n(0.8),
+      textTransform: 'uppercase',
+      color: c.text,
+      lineHeight: n(12),
+    },
+    promoWrap: {
+      width: '90%',
+      alignSelf: 'center',
+      marginBottom: BANNER_TO_CARD_GAP,
+    },
+    promoSlide: {
+      overflow: 'hidden',
+    },
+    promoImageBox: {
+      width: '100%',
+      aspectRatio: 1.6,
+      borderRadius: n(16),
+      overflow: 'hidden',
+      backgroundColor: '#0F172A',
+    },
+    promoImage: {
+      width: '100%',
+      height: '100%',
+    },
+    card: {
+      width: '90%',
+      alignSelf: 'center',
+      backgroundColor: c.surfaceElevated,
+      borderRadius: n(24),
+      paddingHorizontal: n(24),
+      paddingTop: n(8),
+      paddingBottom: n(8),
+      alignItems: 'center',
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: c.borderSubtle,
+      ...Platform.select({
+        ios: {
+          shadowColor: '#0F172A',
+          shadowOffset: { width: 0, height: n(16) },
+          shadowOpacity: 0.07,
+          shadowRadius: n(36),
+        },
+        android: { elevation: 6 },
+      }),
+    },
+    iconCircleBlue: {
+      width: n(64),
+      height: n(64),
+      borderRadius: n(16),
+      backgroundColor: c.infoBg,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: n(12),
+    },
+    iconCircleRed: {
+      width: n(56),
+      height: n(56),
+      borderRadius: n(16),
+      backgroundColor: c.dangerMuted,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: n(12),
+    },
+    cardTitle: {
+      fontSize: n(21),
+      fontWeight: '700',
+      color: c.text,
+      textAlign: 'center',
+      letterSpacing: -0.35,
+      lineHeight: n(26),
+    },
+    cardSub: {
+      marginTop: n(5),
+      fontSize: n(14),
+      color: c.textSecondary,
+      textAlign: 'center',
+      lineHeight: n(21),
+      maxWidth: '92%',
+      fontWeight: '500',
+    },
+    errorText: {
+      marginTop: n(8),
+      fontSize: n(12),
+      color: c.danger,
+      fontWeight: '600',
+      textAlign: 'center',
+      lineHeight: n(17),
+    },
+    primaryBtn: {
+      marginTop: n(12),
+      width: '100%',
+      backgroundColor: c.accent,
+      paddingVertical: n(12),
+      borderRadius: n(14),
+      alignItems: 'center',
+    },
+    primaryBtnText: { color: c.onAccent, fontSize: n(14), fontWeight: '800', lineHeight: n(19) },
+    secondaryBtn: {
+      marginTop: n(16),
+      width: '100%',
+      backgroundColor: c.secondaryBtnBg,
+      paddingVertical: n(14),
+      borderRadius: n(14),
+      alignItems: 'center',
+    },
+    secondaryBtnText: { color: c.secondaryBtnText, fontSize: n(14), fontWeight: '800', lineHeight: n(19) },
+    powerWrap: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: n(3),
+      marginBottom: n(3),
+      width: '100%',
+    },
+    busyOuter: {
+      width: '78%',
+      maxWidth: n(118),
+      aspectRatio: 1,
+      borderRadius: 9999,
+      backgroundColor: c.accentMuted,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginVertical: n(5),
+    },
+    busyRing: {
+      position: 'absolute',
+      width: '94%',
+      height: '94%',
+      borderRadius: 9999,
+      borderWidth: n(2),
+      borderColor: c.accentMuted,
+    },
+    busyInner: {
+      width: '62%',
+      height: '62%',
+      borderRadius: 9999,
+      backgroundColor: c.accent,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    rowCenter: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
+    statusChip: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: n(8),
+      paddingHorizontal: n(16),
+      paddingVertical: n(8),
+      borderRadius: n(100),
+      backgroundColor: c.chipBg,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: c.borderSubtle,
+      marginTop: n(4),
+      maxWidth: '100%',
+      ...Platform.select({
+        ios: {
+          shadowColor: '#0F172A',
+          shadowOffset: { width: 0, height: n(2) },
+          shadowOpacity: 0.05,
+          shadowRadius: n(8),
+        },
+        android: { elevation: 2 },
+      }),
+    },
+    statusChipMuted: {
+      backgroundColor: c.bgMuted,
+      borderColor: c.borderSubtle,
+    },
+    statusDot: { width: n(8), height: n(8), borderRadius: n(4) },
+    statusDotOn: { backgroundColor: '#EF4444' },
+    statusDotOff: { backgroundColor: c.textMuted },
+    statusChipText: {
+      fontSize: n(10),
+      fontWeight: '700',
+      letterSpacing: n(1.2),
+      textTransform: 'uppercase',
+      lineHeight: n(14),
+    },
+    statusChipTextOn: {
+      color: c.textSecondary,
+    },
+    statusChipTextOff: {
+      color: c.text,
+      fontWeight: '900',
+      fontSize: n(11),
+      letterSpacing: n(1.25),
+      lineHeight: n(15),
+    },
+  });
+}
+
+export type DriverHomeStyles = ReturnType<typeof createDriverHomeStyles>;
