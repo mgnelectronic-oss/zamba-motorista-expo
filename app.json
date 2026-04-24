@@ -30,7 +30,7 @@
       "predictiveBackGestureEnabled": false,
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyADkTihWdwte0nIS4iredulg46Qbh6m9ls"
+          "apiKey": "AIz"
         }
       },
       "permissions": [
